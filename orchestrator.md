@@ -68,6 +68,7 @@ If the board is completely clear (no non-done tasks):
 - **Max 3 concurrent agents.** Count `in-progress` tasks. If >= 3, skip new assignments.
 - **Don't re-assign** tasks already in-progress with an assignee.
 - **Respect ordering.** If tasks have `seq:N` tags, don't start `seq:2` before `seq:1` is done.
+- **GPU exclusivity.** Tasks tagged `gpu` use the GPU/llama-server. Only ONE `gpu`-tagged task may be in-progress at a time. Check: `$T/task_filter.sh gpu` — if any `gpu` task is `in-progress`, do not assign another `gpu` task.
 - **Be brief.** Log what you did, don't narrate.
 
 ## Available commands
