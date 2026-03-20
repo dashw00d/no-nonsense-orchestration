@@ -6,7 +6,14 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/lib.sh"
 
 DB_DIR=$(dirname "$DB_PATH")
-MIGRATIONS_DIR="$SCRIPT_DIR/../migrations"
+# migrations/ can be sibling to scripts/ (repo layout) or inside scripts dir (embedded)
+if [ -d "$SCRIPT_DIR/../migrations" ]; then
+	MIGRATIONS_DIR="$(cd "$SCRIPT_DIR/../migrations" && pwd)"
+elif [ -d "$SCRIPT_DIR/migrations" ]; then
+	MIGRATIONS_DIR="$SCRIPT_DIR/migrations"
+else
+	echo "Error: migrations/ directory not found" >&2; exit 1
+fi
 
 mkdir -p "$DB_DIR"
 
